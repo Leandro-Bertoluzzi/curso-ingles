@@ -1,0 +1,142 @@
+/* ===========================
+   English Academy Theme Styles
+   =========================== */
+
+/* Color Palette - Inspired by English learning */
+:root {
+    --primary-color: #2196F3;      /* Blue for trust and learning */
+    --secondary-color: #FF6B6B;    /* Coral for energy */
+    --accent-color: #4CAF50;       /* Green for success */
+    --dark-color: #2C3E50;         /* Dark blue-gray */
+    --light-color: #F5F7FA;        /* Light background */
+    --text-color: #333333;
+    --border-radius: 8px;
+    --shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-color);
+    background-color: var(--light-color);
+}
+
+/* Header Customization */
+#page-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+    color: white;
+    padding: 2rem 0;
+    box-shadow: var(--shadow);
+}
+
+.navbar {
+    background-color: white;
+    border-bottom: 3px solid var(--primary-color);
+}
+
+/* Course Cards */
+.coursebox {
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+    background: white;
+    border: none;
+}
+
+.coursebox:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #1976D2;
+    transform: scale(1.05);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    border-radius: var(--border-radius);
+}
+
+/* Cards and Containers */
+.card {
+    border-radius: var(--border-radius);
+    border: none;
+    box-shadow: var(--shadow);
+}
+
+/* Activity Icons */
+.activityinstance a {
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+/* Footer */
+#page-footer {
+    background-color: var(--dark-color);
+    color: white;
+    padding: 2rem 0;
+    margin-top: 3rem;
+}
+
+/* Custom Front Page Styles */
+.frontpage-hero {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+    color: white;
+    padding: 4rem 2rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.frontpage-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.feature-box {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.feature-box i {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .frontpage-hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .coursebox {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Success Messages */
+.alert-success {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: white;
+}
+
+/* Progress Bars */
+.progress-bar {
+    background-color: var(--accent-color);
+}
