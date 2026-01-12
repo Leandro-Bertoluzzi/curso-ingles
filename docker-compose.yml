@@ -1,0 +1,45 @@
+services:
+  db:
+    image: mariadb:11.2
+    container_name: moodle_db
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - moodle-network
+
+  webserver:
+    image: moodlehq/moodle-php-apache:8.1
+    container_name: moodle_app
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    environment:
+      MOODLE_DOCKER_DBNAME: ${MYSQL_DATABASE}
+      MOODLE_DOCKER_DBUSER: ${MYSQL_USER}
+      MOODLE_DOCKER_DBPASS: ${MYSQL_PASSWORD} 
+      MOODLE_DOCKER_DBHOST: ${MOODLE_DB_HOST:-db}
+      MOODLE_DOCKER_WEB_HOST: ${MOODLE_WEB_HOST:-localhost:8080}
+    volumes:
+      - moodle_data:/var/www/html
+      - moodledata_data:/var/www/moodledata
+      
+      # Custom theme
+      - ./theme:/var/www/html/theme/englishacademy
+    networks:
+      - moodle-network
+
+volumes:
+  db_data:
+    driver: local
+  moodle_data:
+    driver: local
+  moodledata_data:
+    driver: local
+
+networks:
+  moodle-network:
+    driver: bridge
