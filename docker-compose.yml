@@ -9,8 +9,12 @@ services:
     networks:
       - moodle-network
 
-  webserver:
-    image: moodlehq/moodle-php-apache:8.1
+  moodle:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        MOODLE_VERSION: 404
     container_name: moodle_app
     restart: unless-stopped
     ports:
@@ -18,11 +22,22 @@ services:
     depends_on:
       - db
     environment:
-      MOODLE_DOCKER_DBNAME: ${MYSQL_DATABASE}
-      MOODLE_DOCKER_DBUSER: ${MYSQL_USER}
-      MOODLE_DOCKER_DBPASS: ${MYSQL_PASSWORD} 
-      MOODLE_DOCKER_DBHOST: ${MOODLE_DB_HOST:-db}
-      MOODLE_DOCKER_WEB_HOST: ${MOODLE_WEB_HOST:-localhost:8080}
+      # Database connection
+      MOODLE_DB_HOST: ${MOODLE_DB_HOST:-db}
+      MOODLE_DB_NAME: ${MYSQL_DATABASE}
+      MOODLE_DB_USER: ${MYSQL_USER}
+      MOODLE_DB_PASS: ${MYSQL_PASSWORD}
+      
+      # Site configuration
+      MOODLE_WEB_HOST: ${MOODLE_WEB_HOST:-localhost:8080}
+      MOODLE_SITE_FULLNAME: ${MOODLE_SITE_FULLNAME:-English Classes Academy}
+      MOODLE_SITE_SHORTNAME: ${MOODLE_SITE_SHORTNAME:-English Academy}
+      MOODLE_LANG: ${MOODLE_LANG:-en}
+      
+      # Admin user
+      MOODLE_ADMIN_USER: ${MOODLE_ADMIN_USER:-admin}
+      MOODLE_ADMIN_PASS: ${MOODLE_ADMIN_PASS:-Admin123!}
+      MOODLE_ADMIN_EMAIL: ${MOODLE_ADMIN_EMAIL:-admin@example.com}
     volumes:
       - moodle_data:/var/www/html
       - moodledata_data:/var/www/moodledata
