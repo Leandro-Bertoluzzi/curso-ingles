@@ -117,16 +117,31 @@ docker compose up -d --build
 
 ### Backup y Restauración
 
+#### Scripts Automatizados
+
 ```bash
-# Backup de la base de datos
-docker compose exec mariadb mysqldump -u moodleuser -p moodle > backup.sql
+# Crear backup completo (base de datos + archivos)
+./scripts/backup.sh
 
-# Restaurar base de datos
-docker compose exec -T mariadb mysql -u moodleuser -p moodle < backup.sql
+# Si tu proyecto tiene un nombre diferente, especifícalo:
+PROJECT_NAME=mi-proyecto ./scripts/backup.sh
 
-# Backup de moodledata
-tar -czf moodledata-backup.tar.gz moodledata/
+# Restaurar base de datos desde backup
+./scripts/restore-db.sh backups/db_backup_20260302_120000.sql
+# O ejecutar sin argumentos para ver lista de backups disponibles
+./scripts/restore-db.sh
+
+# Restaurar moodledata desde backup
+./scripts/restore-moodledata.sh backups/moodledata_backup_20260302_120000.tar.gz
+# O ejecutar sin argumentos para ver lista de backups disponibles
+./scripts/restore-moodledata.sh
+
+# Los backups se guardan en: backups/
+# - db_backup_YYYYMMDD_HHMMSS.sql
+# - moodledata_backup_YYYYMMDD_HHMMSS.tar.gz
 ```
+
+**Nota:** Los scripts usan `PROJECT_NAME=curso-ingles` por defecto (definido en `.env`). Si cambiaste el nombre del directorio del proyecto, actualiza esta variable en tu archivo `.env`.
 
 ### Desarrollo
 
