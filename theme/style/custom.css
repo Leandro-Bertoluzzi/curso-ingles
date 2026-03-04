@@ -1,142 +1,225 @@
-/* ===========================
-   English Academy Theme Styles
-   =========================== */
+/**
+ * File custom.css.
+ * Contains custom styles for the English Academy theme (Boost child, Moodle 4.4).
+ *
+ * Color palette:
+ *   Primary   #2196f3  Blue — trust and learning.
+ *   Secondary #e05555  Coral — energy (darkened from #ff6b6b for WCAG AA contrast).
+ *   Accent    #3d9e41  Green — success (darkened from #4caf50 for WCAG AA contrast).
+ *   Dark      #2c3e50  Dark blue-gray — footer and headings.
+ *   Light     #f5f7fa  Off-white — page background.
+ */
 
-/* Color Palette - Inspired by English learning */
+/**
+ * Design tokens.
+ * Bootstrap 5 primary-color variables are also overridden here so all
+ * Bootstrap components pick up the academy palette automatically.
+ */
 :root {
-    --primary-color: #2196F3;      /* Blue for trust and learning */
-    --secondary-color: #FF6B6B;    /* Coral for energy */
-    --accent-color: #4CAF50;       /* Green for success */
-    --dark-color: #2C3E50;         /* Dark blue-gray */
-    --light-color: #F5F7FA;        /* Light background */
-    --text-color: #333333;
-    --border-radius: 8px;
-    --shadow: 0 2px 8px rgba(0,0,0,0.1);
+    /* Academy palette. */
+    --ea-primary: #2196f3;
+    --ea-primary-dark: #1565c0;
+    --ea-secondary: #e05555;
+    --ea-secondary-dark: #c44e4e;
+    --ea-accent: #3d9e41;
+    --ea-dark: #2c3e50;
+    --ea-light: #f5f7fa;
+    --ea-text: #333;
+    --ea-radius: 0.5rem;
+    --ea-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --ea-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.15);
+
+    /* Override Bootstrap 5 colour variables used by Moodle 4.4/Boost. */
+    --bs-primary: #2196f3;
+    --bs-primary-rgb: 33, 150, 243;
+    --bs-link-color: #2196f3;
+    --bs-link-hover-color: #1565c0;
 }
 
-/* General Styles */
+/**
+ * Base typography.
+ * Uses the Bootstrap 5 / Moodle 4 native system font stack — no external
+ * font requests, best rendering on every platform and OS.
+ */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: var(--text-color);
-    background-color: var(--light-color);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: var(--ea-text);
+    background-color: var(--ea-light);
 }
 
-/* Header Customization */
-#page-header {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
-    color: white;
-    padding: 2rem 0;
-    box-shadow: var(--shadow);
-}
-
+/**
+ * Top navigation bar.
+ * .navbar is the Bootstrap/Boost navbar wrapper rendered in drawers.mustache.
+ */
 .navbar {
-    background-color: white;
-    border-bottom: 3px solid var(--primary-color);
+    background-color: #fff;
+    border-bottom: 3px solid var(--ea-primary);
+    box-shadow: var(--ea-shadow);
 }
 
-/* Course Cards */
-.coursebox {
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-    transition: transform 0.3s ease;
-    background: white;
-    border: none;
+.navbar .nav-link,
+.navbar .navbar-brand {
+    color: var(--ea-dark);
 }
 
-.coursebox:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+    color: var(--ea-primary);
 }
 
-/* Buttons */
-.btn-primary {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    border-radius: var(--border-radius);
-    transition: all 0.3s ease;
+/**
+ * Page header area.
+ * .bg-header-standard is the header background wrapper in Boost 4.4.
+ * .page-header-headings contains the page title and breadcrumb.
+ */
+.bg-header-standard {
+    background-color: #fff;
+    border-bottom: 1px solid #dee2e6;
 }
 
-.btn-primary:hover {
-    background-color: #1976D2;
-    transform: scale(1.05);
+.page-header-headings h1 {
+    color: var(--ea-dark);
+    font-weight: 700;
 }
 
-.btn-secondary {
-    background-color: var(--secondary-color);
-    border-color: var(--secondary-color);
-    border-radius: var(--border-radius);
+/**
+ * Navigation drawer (side panel).
+ * #nav-drawer is the off-canvas/side drawer rendered by Boost 4.4.
+ */
+#nav-drawer {
+    background-color: var(--ea-dark);
 }
 
-/* Cards and Containers */
+#nav-drawer .nav-link {
+    color: rgba(255, 255, 255, 0.85);
+    border-radius: var(--ea-radius);
+}
+
+#nav-drawer .nav-link:hover,
+#nav-drawer .nav-link:focus,
+#nav-drawer .nav-link.active {
+    background-color: var(--ea-primary);
+    color: #fff;
+}
+
+/**
+ * Course cards.
+ * Moodle 4.4 renders course listings using Bootstrap .card elements.
+ * .dashboard-card is added by Boost to course cards on the dashboard.
+ */
 .card {
-    border-radius: var(--border-radius);
     border: none;
-    box-shadow: var(--shadow);
+    border-radius: var(--ea-radius);
+    box-shadow: var(--ea-shadow);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-/* Activity Icons */
-.activityinstance a {
-    color: var(--primary-color);
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--ea-shadow-hover);
+}
+
+.dashboard-card .card-title a {
+    color: var(--ea-dark);
+    font-weight: 600;
+}
+
+.dashboard-card .card-title a:hover {
+    color: var(--ea-primary);
+    text-decoration: none;
+}
+
+.dashboard-card .card-footer {
+    background-color: transparent;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/**
+ * Activity list items.
+ * Moodle 4.4 uses .activity-item wrappers and .activityname for activity links.
+ * The old .activityinstance selector does not exist in Moodle 4.x.
+ */
+.activity-item .activityname a {
+    color: var(--ea-primary);
     font-weight: 500;
 }
 
-/* Footer */
+.activity-item .activityname a:hover {
+    color: var(--ea-primary-dark);
+}
+
+/**
+ * Buttons.
+ * Boost uses standard Bootstrap button classes. Overriding --bs-primary above
+ * handles most cases; these rules add the academy border-radius and transitions.
+ */
+.btn-primary {
+    background-color: var(--ea-primary);
+    border-color: var(--ea-primary);
+    border-radius: var(--ea-radius);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--ea-primary-dark);
+    border-color: var(--ea-primary-dark);
+}
+
+.btn-secondary {
+    background-color: var(--ea-secondary);
+    border-color: var(--ea-secondary);
+    border-radius: var(--ea-radius);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active {
+    background-color: var(--ea-secondary-dark);
+    border-color: var(--ea-secondary-dark);
+}
+
+/**
+ * Progress bars.
+ */
+.progress-bar {
+    background-color: var(--ea-accent);
+}
+
+/**
+ * Badges — completion and grade indicators.
+ */
+.badge.bg-success {
+    background-color: var(--ea-accent) !important;
+}
+
+/**
+ * Footer.
+ * #page-footer is the standard Boost/Moodle footer wrapper.
+ */
 #page-footer {
-    background-color: var(--dark-color);
-    color: white;
+    background-color: var(--ea-dark);
+    color: rgba(255, 255, 255, 0.85);
     padding: 2rem 0;
     margin-top: 3rem;
 }
 
-/* Custom Front Page Styles */
-.frontpage-hero {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
-    color: white;
-    padding: 4rem 2rem;
-    border-radius: var(--border-radius);
-    margin-bottom: 2rem;
-    text-align: center;
+#page-footer a {
+    color: rgba(255, 255, 255, 0.75);
 }
 
-.frontpage-hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+#page-footer a:hover,
+#page-footer a:focus {
+    color: #fff;
 }
 
-.feature-box {
-    background: white;
-    padding: 2rem;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-    margin-bottom: 1.5rem;
-    text-align: center;
-}
-
-.feature-box i {
-    font-size: 3rem;
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .frontpage-hero h1 {
-        font-size: 1.8rem;
-    }
-    
-    .coursebox {
+/**
+ * Responsive adjustments.
+ */
+@media only screen and (max-width: 768px) {
+    .card {
         margin-bottom: 1rem;
     }
-}
-
-/* Success Messages */
-.alert-success {
-    background-color: var(--accent-color);
-    border-color: var(--accent-color);
-    color: white;
-}
-
-/* Progress Bars */
-.progress-bar {
-    background-color: var(--accent-color);
 }

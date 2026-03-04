@@ -10,7 +10,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'theme_englishacademy';
-$plugin->version   = 2026010600;
-$plugin->requires  = 2022041900; // Moodle 4.0
+$plugin->version   = 2026030400;
+$plugin->requires  = 2023100900; // Moodle 4.4
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '1.0';
+$plugin->release   = '1.1';
